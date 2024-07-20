@@ -9,6 +9,7 @@ import {
 } from 'react-native';
 
 import React,{useState} from 'react';
+import Loading from "../../components/Loadin.js";
 
 
 export default function HomeScreen() {
@@ -16,9 +17,14 @@ export default function HomeScreen() {
   const [name,setName]=useState("")
   const [lastname,setLastName]=useState("")
   const [result,setResult]=useState("")
+  const [isloading,setIsLoading]=useState(false)
   
   return (
     <View style ={styles.container}>
+      <Image 
+      source={require("../../assets/images/Login.png")}     
+      style={styles.image}/>
+
 
       <Text>Welcome {result}</Text>
        <TextInput></TextInput>
@@ -38,7 +44,7 @@ export default function HomeScreen() {
        />
 
        <Pressable 
-       onPress={()=>setResult(name+" "+lastname)}
+       onPress={()=>setIsLoading(true)}
        style={({pressed})=>[{
         
         backgroundColor: pressed ? "gray" : "lightblue"},
@@ -47,6 +53,8 @@ export default function HomeScreen() {
       <Text style={styles.buttonText}>Save</Text>
 
        </Pressable>
+
+       {isloading ? <Loading changeIsLoading={()=>setIsLoading(false)}/> : null}
 
     </View>
 
@@ -82,6 +90,10 @@ const styles = StyleSheet.create({
   buttonText:{
     fontWeight:"bold",
     color:"White"
+  },
+  image: {
+    width:100,
+    height:100,
   }
   
 
